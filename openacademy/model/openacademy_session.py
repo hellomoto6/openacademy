@@ -10,7 +10,7 @@ class Session(models.Model):
    seats = fields.Integer(string="Number of seats")       
    instructor_id = fields.Many2one('res.partner', string="Instructor",domain=['|',                                                                        
                                         ("instructor", "=", True),                                                     
-                                        ("category_id", "ilike", "Teacher")                                       
+                                        ("category_id.name", "ilike", "Teacher")                                       
                                    ])                          
 
    course_id = fields.Many2one('openacademy.course', 
