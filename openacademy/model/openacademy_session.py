@@ -1,6 +1,10 @@
 
-# -*- coding: utf-8 -*-                                                                                                
-from openerp import api,exceptions,fields, models                                                                                     
+# -*- coding: utf-8 -*-
+                                                                                      
+from datetime import timedelta
+
+from openerp import api, exceptions, fields, models 
+                                                                                                                                                                      
                                                                                                                        
 class Session(models.Model):                                                                                           
    _name = 'openacademy.session'                                                                                       
@@ -15,14 +19,13 @@ class Session(models.Model):
                                    ])                          
 
    course_id = fields.Many2one('openacademy.course', 
-				ondelete='cascade', string="Course", required=True)  
-  
+				ondelete='cascade', string="Course", required=True)
    attendee_ids = fields.Many2many('res.partner', string="Attendees") 
    taken_seats = fields.Float(string="Taken seats", compute='_taken_seats',                                           
-                              store=True)
-
-
-   active = fields.Boolean(default=True)                                           
+                              store=True)                                           
+   active = fields.Boolean(default=True)    
+   end_date = fields.Date(string="End Date", store=True,
+        compute='_get_end_date', inverse='_set_end_date')                                       
                                                                                                                      
    @api.one                                                                                                           
    @api.depends('seats', 'attendee_ids')                                                                              
@@ -30,9 +33,8 @@ class Session(models.Model):
        if not self.seats:                                                                                             
            self.taken_seats = 0                                                                                       
        else:                                                                                                          
-           self.taken_seats = 100.0 * len(self.attendee_ids) / self.seats                                           
-
-   @api.onchange('seats', 'attendee_ids')                                                                              
+           self.taken_seats = 100.0 * len(self.attendee_ids) / self.seats
+                                                                                                             
    def _verify_valid_seats(self):                                                                                                                                                 
         if self.seats < 0:                                                                                             
             return {                                                                                                   
@@ -53,7 +55,40 @@ class Session(models.Model):
    @api.constrains('instructor_id', 'attendee_ids')                                                                   
    def _check_instructor_not_in_attendees(self):                                                                       
        if self.instructor and self.instructor_id in self.attendee_ids:                                                 
-            raise exceptions.ValidationError("A session's instructor can't be an attendee")                        
+            raise exceptions.ValidationError("A session's instructor can't be an attendee")
+
+   @api.one                                                                                                            
+   @api.depends('duration', 'start_date')                                                                              
+   def _get_end_date(self):
+       print "_get_end_date-------------------"                                                                                            
+       if not (self.start_date and self.duration):                                                                     
+            self.end_date = self.start_date                                                                            
+            return
+       # Add duration to start_date, but: Monday + 5 days = Saturday, so                                              
+       # subtract one second to get on Friday instead                                                                 
+       start = fields.Datetime.from_string(self.start_date)                                                           
+       duration = timedelta(days=self.duration, seconds=-1)                                                           
+       self.end_date = start + duration 
+                                                                                                                     
+   @api.one                                                                                                           
+   def _set_end_date(self):                                                                                           
+       if not (self.start_date and self.end_date):                                                                    
+           return                                                                                                     
+       print "_set_end_date-------------------"                                                                                                                        
+       # Compute the difference between dates, but: Friday - Monday = 4 days,                                         
+       # so add one day to get 5 days instead                                                                         
+       start_date = fields.Datetime.from_string(self.start_date)                                                      
+       end_date = fields.Datetime.from_string(self.end_date)                                                          
+       self.duration = (end_date - start_date).days + 1      
+
+
+
+
+
+
+
+                                                                              
+                            
                                                                        
                                                                                              
                                                                            
