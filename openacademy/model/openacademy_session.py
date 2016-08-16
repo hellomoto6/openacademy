@@ -29,7 +29,8 @@ class Session(models.Model):
    hours = fields.Float(string="Duration in hours",                                                                    
                          compute='_get_hours', inverse='_set_hours')
    attendees_count = fields.Integer(                                                                                   
-        string="Attendees count", compute='_get_attendees_count', store=True)                                               
+        string="Attendees count", compute='_get_attendees_count', store=True)
+   color = fields.Integer()                                               
                                                                                                                      
    @api.one                                                                                                           
    @api.depends('seats', 'attendee_ids')                                                                              
