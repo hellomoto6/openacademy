@@ -14,7 +14,8 @@
                     <sheet>                                                                                            
                         <group string="General">
                             <field name="course_id"/>                                                                                        
-                            <field name="name"/>                                                                       
+                            <field name="name"/>
+                            <field name="taken_seats" widget="progressbar"/>                                                                       
                             <field name="instructor_id"/>                                                                 
                                                                                          
                          </group>
