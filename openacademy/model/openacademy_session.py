@@ -61,7 +61,6 @@ class Session(models.Model):
                 },                                                                                                     
             }                                                     
                                    
-   @api.one                                                                                                            
    @api.constrains('instructor_id', 'attendee_ids')                                                                   
    def _check_instructor_not_in_attendees(self):                                                                       
        if self.instructor and self.instructor_id in self.attendee_ids:                                                 
