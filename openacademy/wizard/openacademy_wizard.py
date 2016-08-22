@@ -12,7 +12,8 @@ class Wizard(models.TransientModel):
         return self.env['openacademy.session'].browse(active_ids)
 
     session_wiz_ids = fields.Many2many('openacademy.session',
-                                       string="Session", required=True, default=_default_session)
+                                       string="Session", required=True,
+                                       default=_default_session)
     attendee_wiz_ids = fields.Many2many('res.partner', string="Attendees")
 
     @api.multi

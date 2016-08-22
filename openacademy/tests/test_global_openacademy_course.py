@@ -19,8 +19,7 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
         self.course = self.env['openacademy.course']
 
     # Method of class that don't is test.
-    def create_course(self, course_name, course_description,
-                      course_responsible_id):
+    def create_course(self, course_name, course_description, course_responsible_id):
         # create a course with parameters received
         course_id = self.course.create({
             'name': course_name,
@@ -53,14 +52,14 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
         Test to create two courses with same name.
         To raise constraint of unique name
         '''
-        new_id = self.create_course('test1', 'test_description', None)
+        self.create_course('test1', 'test_description', None)
         # print "new_id", new_id
         with self.assertRaisesRegexp(
                 IntegrityError,
                 'duplicate key value violates unique'
                 ' constraint "openacademy_course_name_unique"'
         ):
-            new_id2 = self.create_course('test1', 'test_description', None)
+            self.create_course('test1', 'test_description', None)
             # print "new_id2", new_id2
 
     def test_15_duplicate_course(self):
@@ -68,5 +67,5 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
         Test to duplicate a course and check that work fine!
         '''
         course = self.env.ref('openacademy.course0')
-        course_id = course.copy()
+        course.copy()
         # print "course_id", course_id
