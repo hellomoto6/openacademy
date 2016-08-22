@@ -19,7 +19,6 @@ class GlobalTestOpenAcademySession(TransactionCase):
 
     # Generic methods
 
-
     # Test methods
     def test_10_instructor_is_attende(self):
         '''
