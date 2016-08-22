@@ -48,7 +48,8 @@ class GlobalTestOpenAcademySession(TransactionCase):
             'course_id': self.course.id,
         })
         # Check initial state
-        self.assertEqual(session_test.state, 'draft', 'Initial state should be in "draft"')
+        self.assertEqual(session_test.state, 'draft',
+                         'Initial state should be in "draft"')
 
         # Change next state and check it
         session_test.signal_workflow('button_confirm')

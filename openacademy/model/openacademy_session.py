@@ -50,16 +50,14 @@ class Session(models.Model):
             return {
                 'warning': {
                 'title': _("Incorrect 'seats' value"),
-                'message':
-                    _("The number of available seats may not be negative"),
+                'message':_("The number of available seats may not be negative"),
                 },
             }
         if self.seats < len(self.attendee_ids):
             return {
                 'warning': {
                 'title': _("Too many attendees"),
-                'message':
-                    _("Increase seats or remove excess attendees"),
+                'message':_("Increase seats or remove excess attendees"),
                 },
             }
 
@@ -67,8 +65,8 @@ class Session(models.Model):
     @api.constrains('instructor_id', 'attendee_ids')
     def _check_instructor_not_in_attendees(self):
         if self.instructor_id and self.instructor_id in self.attendee_ids:
-            raise exceptions.ValidationError\
-                (_("A session's instructor can't be an attendee"))
+            raise exceptions.ValidationError(
+                _("A session's instructor can't be an attendee"))
 
     @api.one
     @api.depends('duration', 'start_date')

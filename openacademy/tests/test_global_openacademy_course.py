@@ -19,7 +19,8 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
         self.course = self.env['openacademy.course']
 
     # Method of class that don't is test.
-    def create_course(self, course_name, course_description, course_responsible_id):
+    def create_course(self, course_name, course_description,
+                      course_responsible_id):
         # create a course with parameters received
         course_id = self.course.create({
             'name': course_name,
