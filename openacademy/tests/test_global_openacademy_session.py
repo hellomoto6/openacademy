@@ -5,7 +5,7 @@ from openerp.tests.common import TransactionCase
 from openerp.exceptions import ValidationError
 
 
-class GlobalTestOpenAcademySession(TransacationCase):
+class GlobalTestOpenAcademySession(TransactionCase):
    '''This create global test to sessions'''
 
    #Seudo-constructor method
