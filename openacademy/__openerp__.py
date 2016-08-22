@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Open Academy",
-
     'summary': """Manage trainings""",
-
     'description': """
         Open Academy module for managing trainings:
             - training courses
@@ -21,21 +19,19 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','board'],
+    'depends': ['base', 'board'],
 
     # always loaded
     'data': [
         'view/openacademy_course_view.xml',
         'view/openacademy_session_view.xml',
         'view/partner_view.xml',
-        'workflow/openacademy_session_workflow.xml',
-        'security/security.xml',
-        'security/ir.model.access.csv',
+	'workflow/openacademy_session_workflow.xml',
+	'security/security.xml',
+        'security/ir.model.access.csv', 
         'view/openacademy_wizard_view.xml',
         'report/openacademy_session_report.xml',
         'view/openacademy_session_board.xml',
-
-      
     ],
     # only loaded in demonstration mode
     'demo': [
@@ -44,3 +40,4 @@
     'installable': True,
     'auto_install': False,
 }
+
