@@ -18,7 +18,7 @@ class Session(models.Model):
                                     ("category_id.name", "ilike", "Teacher"),
                                     ])
     course_id = fields.Many2one('openacademy.course',
-                                ondelete='cascade', string="Course", required=True)
+                ondelete='cascade', string="Course", required=True)
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
     taken_seats = fields.Float(string="Taken seats",
                                compute='_taken_seats', store=True)
@@ -49,15 +49,17 @@ class Session(models.Model):
         if self.seats < 0:
             return {
                 'warning': {
-                    'title': _("Incorrect 'seats' value"),
-                    'message': _("The number of available seats may not be negative"),
+                'title': _("Incorrect 'seats' value"),
+                'message':
+                    _("The number of available seats may not be negative"),
                 },
             }
         if self.seats < len(self.attendee_ids):
             return {
                 'warning': {
-                    'title': _("Too many attendees"),
-                    'message': _("Increase seats or remove excess attendees"),
+                'title': _("Too many attendees"),
+                'message':
+                    _("Increase seats or remove excess attendees"),
                 },
             }
 
@@ -65,7 +67,8 @@ class Session(models.Model):
     @api.constrains('instructor_id', 'attendee_ids')
     def _check_instructor_not_in_attendees(self):
         if self.instructor_id and self.instructor_id in self.attendee_ids:
-            raise exceptions.ValidationError(_("A session's instructor can't be an attendee"))
+            raise exceptions.ValidationError\
+                (_("A session's instructor can't be an attendee"))
 
     @api.one
     @api.depends('duration', 'start_date')
