@@ -5,6 +5,7 @@ from psycopg2 import IntegrityError
 from openerp.tests.common import TransactionCase
 from openerp.tools import mute_logger
 
+
 class GlobalTestOpenAcademyCourse(TransactionCase):
     '''
     Global test to openacademy course model.
@@ -42,7 +43,7 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
                 IntegrityError,
                 'new row for relation "openacademy_course" violates'
                 ' check constraint "openacademy_course_name_description_check"'
-                ):
+        ):
             # Create a course with same name and description to raise error.
             self.create_course('test', 'test', None)
 
@@ -58,7 +59,7 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
                 IntegrityError,
                 'duplicate key value violates unique'
                 ' constraint "openacademy_course_name_unique"'
-            ):
+        ):
             new_id2 = self.create_course('test1', 'test_description', None)
             # print "new_id2", new_id2
 
