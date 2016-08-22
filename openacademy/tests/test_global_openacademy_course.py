@@ -42,12 +42,11 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
               'new row for relation "openacademy_course" violates'
               'check constraint "openacademy_course_name_description_check"'
         ):
-        # Create a course with same name and description to raise error.
-        self.create_course('test','test',None)
+            #Create a course with same name and description to raise error.
+            self.create_course('test','test',None)
 
    @mute_logger('openerp.sql_db')
    def test_20_two_courses_same_name(self):
-
         ''' Test to create two courses with same name.
           To raise contraint of unique name.'''
        
