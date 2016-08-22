@@ -14,7 +14,7 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
       #Define global variables to test methods
       super(GlobalTestOpenAcademyCourse,self).setUp()
       self.variable= 'hello world'
-      self.course= self.env.ref('openacademy.course')
+      self.course= self.env['openacademy.course']
 
    #Method of class that don't is test.
    def create_course(self,course_name,course_description,
