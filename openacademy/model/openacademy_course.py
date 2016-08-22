@@ -10,9 +10,11 @@ class Course(models.Model):
     '''
     This class create model of Course
     '''
-    _name = 'openacademy.course'  #  Model odoo name
+    #  Model odoo name
+    _name = 'openacademy.course'
 
-    name = fields.Char(string='Title', required=True)  #  Field reserved to identified name rec
+    #  Field reserved to identified name rec
+    name = fields.Char(string='Title', required=True)  
     description = fields.Text(string='Description')
     responsible_id = fields.Many2one('res.users',
                      		     ondelete='set null',
@@ -35,13 +37,12 @@ class Course(models.Model):
         # print "estoy pasando por la funcion heredada de copy en cursos"
         if default is None:
             default = {}
-        #  default['name'] = self.name + ' (copy)'
+        # default['name'] = self.name + ' (copy)'
         copied_count = self.search_count(
             [('name', '=like', _(u"Copy of {}%").format(self.name))])
         if not copied_count:
             new_name = _(u"Copy of {}").format(self.name)
         else:
             new_name = _(u"Copy of {} ({})").format(self.name, copied_count)
-        
         default['name'] = new_name
         return super(Course, self).copy(default)
