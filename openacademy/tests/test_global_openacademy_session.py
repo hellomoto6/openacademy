@@ -27,13 +27,13 @@ class GlobalTestOpenAcademySession(TransacationCase):
             ValidationError,
             "A session's instructor can't be an attendee"
       ):
-      self.session.create({
+         self.session.create({
             'name': 'Session test 1',
             'seats': 1,
             'instructor_id': self.partner_vauxoo.id,
             'attendee_ids': [(6, 0, [self.partner_vauxoo.id])],
             'course_id': self.course.id,
-      })
+         })
 
    def test_20_wkf_done(self):
       ''' Check that the workflow work fine! '''
