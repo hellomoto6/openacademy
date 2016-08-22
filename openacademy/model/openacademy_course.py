@@ -14,11 +14,11 @@ class Course(models.Model):
     _name = 'openacademy.course'
 
     #  Field reserved to identified name rec
-    name = fields.Char(string='Title', required=True)
+    name = fields.Char(string = 'Title', required=True)
     description = fields.Text(string='Description')
-    responsible_id = fields.Many2one('res.users',
-                                     ondelete='set null', 
-                                     string="Responsible", index=True)
+    responsible_id = fields.Many2one('res.users', 
+                     ondelete='set null', 
+                     string="Responsible", index=True)
     session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
 
 
@@ -37,7 +37,7 @@ class Course(models.Model):
             default = {}
         # default['name'] = self.name + ' (copy)'
         copied_count = self.search_count([
-	               ('name', '=like', _(u"Copy of {}%").format(self.name))])
+                       ('name', '=like', _(u"Copy of {}%").format(self.name))])
         if not copied_count:
             new_name = _(u"Copy of {}").format(self.name)
         else:
