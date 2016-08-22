@@ -59,8 +59,8 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
         ):
 
 
-        new_id2 = self.create_course('test1','test_description',None)
-        print "new_id2", new_id2
+           new_id2 = self.create_course('test1','test_description',None)
+           print "new_id2", new_id2
 
    def test_15_duplicate_course(self):
 
